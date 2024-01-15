@@ -15,9 +15,9 @@ module.exports = `
     <header>
         <nav>
             <ul class="navigation">
-                <li><a href="">Home Page</a></li>
-                <li><a href="">Add Breed</a></li>
-                <li><a href="">Add Cat</a></li>
+                <li><a href="/">Home Page</a></li>
+                <li><a href="/cats/add-breed">Add Breed</a></li>
+                <li><a href="/cats/add-cat">Add Cat</a></li>
             </ul>
         </nav>
         <h1>Cat Shelter</h1>
@@ -30,7 +30,7 @@ module.exports = `
             <label for="description">Description</label>
             <textarea name="description" id="description"></textarea>
             <label for="image">Image</label>
-            <input name="upload" type="file" id="image">
+            <input name="upload" type="text" id="image">
             <label for="group">Breed</label>
             <select name="breed" id="group">
                 <option value="Fluffy Cat">Fluffy Cat</option>
