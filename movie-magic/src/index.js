@@ -11,7 +11,7 @@ app.engine('hbs', handlebars.engine({
     extname: 'hbs',
 }));
 app.set('view engine', 'hbs');
-app.set('home', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'views'));
 
 app.use(routes);
 
