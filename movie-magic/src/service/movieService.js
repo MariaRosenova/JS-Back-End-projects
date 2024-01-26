@@ -10,8 +10,10 @@ const movies = [
 },
 
 ];
+exports.getAll = () => {
+    return movies;
+};
 
 exports.create = (movieData) => {
     movies.push(movieData);
-    console.log(movies)
 }
