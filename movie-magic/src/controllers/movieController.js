@@ -1,7 +1,17 @@
 const router = require('express').Router();
+const movieService = require('../service/movieService');
 
-router.use('/create', (req, res) => {
+
+router.get('/create', (req, res) => {
     res.render('create');
+});
+
+router.post('/create', (req, res) => {
+    const newMovie = req.body;  
+    movieService.create(newMovie);
+    console.log(req.body);
 })
+
+
 
 module.exports = router;
