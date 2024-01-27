@@ -1,28 +1,28 @@
          <section id="details-page">
-              {{#with movie}}
+              {{!-- {{#with movie}} --}}
                 <div class="main_card">
                     <div class="card_left">
-                        <div class="card_datails">
-                            <h1>{{title}}</h1>
+                        <div class="card_details">
+                            <h1>{{movie.title}}</h1>
                             <div class="card-movie">
                                 <div class="first-info">
-                                    <p class="card-genre">{{genre}}</p>
-                                    <p class="card-director">{{director}}</p>
+                                    <p class="card-genre">{{movie.genre}}</p>
+                                    <p class="card-director">{{movie.director}}</p>
                                 </div>
                                 <div class="second-info">
-                                    <p class="card-year">{{date}}</p>
-                                    <p class="card-ranking">Rating: {{#each rating}} &#x2605; {{/each}}</p>
+                                    <p class="card-year">{{movie.date}}</p>
+                                    <p class="card-ranking">Rating: <span id="stars">{{#each movie.rating}} &#x2605; {{/each}}</span></p>
                                 </div>
 
                             </div>
 
-                            <p class="disc">{{description}}</p>
+                            <p class="disc">{{movie.description}}</p>
                         </div>
                     </div>
                     <div class="card_right">
-                        <img src="{{imageUrl}}"
+                        <img src="{{movie.imageUrl}}"
                             alt="image">
                     </div>
-                    {{/with}}
+                    {{!-- {{/with}} --}}
                 </div>
             </section>
