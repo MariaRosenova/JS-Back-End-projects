@@ -31,7 +31,7 @@ const movieSchema = new mongoose.Schema({
         maxLength: 1000,
     },
     imageUrl: {
-        type: string,
+        type: String,
         required: true,
         match: /^https?/
     }
