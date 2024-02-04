@@ -21,9 +21,6 @@ router.post('/create', async (req, res) => {
         res.status(400).end();
         
     }
-    
-
-    
 });
 
 router.get('/movies/:movieId', async (req, res) => {
@@ -35,6 +32,8 @@ router.get('/movies/:movieId', async (req, res) => {
     res.render('details', { movie });
 });
 
-
+router.get('/movies/:movieId/attach', (req, res) => {
+    res.render('movie/attach');
+});
 
 module.exports = router;
