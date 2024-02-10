@@ -1,7 +1,8 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
-const mongoose = require("mongoose");
-const jsonwebtoken = require('jsonwebtoken')
+const { SECRET } = require('../config/config');
+const jwt = require('../lib/jwt');
+
 
 exports.createUser = (userData) => {
   const user = await.findOne({ email: userData.email });
@@ -20,7 +21,7 @@ exports.login = async (loginData) => {
   }
 
   const isValid = await bcrypt.compare(loginData.password, user.password);
-
+  
   if (!isValid) {
     throw new Error("Cannot find email or password");
   } else {
@@ -28,12 +29,10 @@ exports.login = async (loginData) => {
   }
 
   const payload = {
+    _id: user._id,
     username: user.username,
   };
-
-  const SECRET = 'kddkfksklfo5fs5f8f2f75';
-
-  const token = jsonwebtoken.sign(payload, SECRET, {expiresIn: '2h'});
-
   
+  const token = await jwt.sign(payload, SECRET, {expiresIn: '2h'});
+  return token;
 };

@@ -1,5 +1,4 @@
 const { model } = require('mongoose');
-
 const router = require('express').Router();
 
 router.get('/', (req, res) => {
@@ -8,7 +7,7 @@ router.get('/', (req, res) => {
 
 router.get('/profile', (req, res) => {
     res.render('profile');
-})
+});
 
 
 module.exports = router;
