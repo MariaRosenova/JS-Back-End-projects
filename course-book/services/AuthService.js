@@ -5,7 +5,7 @@ const jwt = require('../lib/jwt');
 
 
 exports.createUser = (userData) => {
-  const user = await.findOne({ email: userData.email });
+  const user = User.findOne({ email: userData.email });
 
   if (user) {
     throw new Error("Email already exists");
