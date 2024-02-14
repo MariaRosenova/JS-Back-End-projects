@@ -4,14 +4,15 @@ const { SECRET } = require('../config/config');
 const jwt = require('../lib/jwt');
 
 
-exports.createUser = (userData) => {
-  const user = User.findOne({ email: userData.email });
+exports.register = async (userData) => {
+   const user = await User.findOne({email : userData.email});
 
-  if (user) {
-    throw new Error("Email already exists");
-  }
-  return User.create(userData);
-};
+   if (user) {
+    throw new Error('User already exists');
+   }
+
+   return User.create(userData);
+}
 
 exports.login = async (loginData) => {
   const user = await User.findOne({ email: loginData.email });
@@ -24,15 +25,14 @@ exports.login = async (loginData) => {
   
   if (!isValid) {
     throw new Error("Cannot find email or password");
-  } else {
-    console.log("is valid keep calm");
   }
-
+  
   const payload = {
     _id: user._id,
     username: user.username,
+    email: user.email,
   };
   
   const token = await jwt.sign(payload, SECRET, {expiresIn: '2h'});
-  return token;
+         return token;
 };
