@@ -23,6 +23,8 @@ app.set('view engine', 'hbs');
 
 app.use(routes);
 
+
+
 mongoose.connect(`mongodb://127.0.0.1:27017/course-book`)
     .then(() => {
         console.log('DB is connected');
@@ -30,3 +32,4 @@ mongoose.connect(`mongodb://127.0.0.1:27017/course-book`)
     })
     .catch((err) => console.log('Error connecting to MongoDb: ', err));
 
+mongoose.connection.on('error', (err) => console.log(err));
