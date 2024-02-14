@@ -1,28 +1,39 @@
-const movies = [
-    {
-        _id:1,
-        title: 'The little mermaid',
-        genre: 'drama',
-        director: 'someone',
-        date: '2022',
-        imageUrl: '/img/the-little-mermaid.jpg',
-        rating: 5,
-        description: "The youngest of King Triton's daughters, Ariel is a beautiful and spirited young mermaid with a thirst for adventure. Longing to find out more about the world beyond the sea, Ariel visits the surface and falls for the dashing Prince Eric. Following her heart, she makes a deal with the evil sea witch, Ursula, to experience life on land."
-},
+const Movie = require("../models/Movie");
 
-];
-exports.getAll = () => {
-    return movies;
+exports.getAll = () => Movie.find();
+
+//TODO: Filter result in mongoDB
+exports.search = (title, genre, year) => {
+
+  let query = {};
+
+  if (title) {
+    query.title = new RegExp(title, "i");
+  }
+
+  if (genre) {
+    query.genre = genre.toLowerCase();
+  }
+
+  if (year) {
+    query.year = year;
+  }
+  return Movie.find(query);
 };
 
-exports.create = (movieData) => {
-    movieData._id = movies[movies.length - 1]._id + 1;
-    movies.push(movieData);
-}
+exports.getOne = (movieId) => Movie.findById(movieId).populate("casts");
 
-exports.getOne = (_id) => {
-    const movieId = _id;
-    const movie = movies.find((movie) => movie._id == movieId);
+exports.create = (movieData) => Movie.create(movieData);
 
-    return movie || null; 
+exports.attach = async (movieId, castId) => {
+  //  return Movie.findByIdAndUpdate(movieId, {$push: {casts : castId}});
+
+  const movie = await this.getOne(movieId);
+
+  //TODO: Validate castId if exists
+  //TODO: Validate if cast is already added
+
+  movie.casts.push(castId);
+
+  return movie.save();
 };
