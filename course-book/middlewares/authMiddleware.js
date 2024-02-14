@@ -1,5 +1,3 @@
-// authMiddleware.js
-
 const jwt = require('../lib/jwt');
 const { SECRET } = require('../config/config');
 
