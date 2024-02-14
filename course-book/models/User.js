@@ -1,7 +1,7 @@
-const {Schema, model, MongooseError} = require('mongoose');
+const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
-const userSchema = new Schema({
+const userSchema = new mongoose.Schema({
     username: {
         type: String,
         required: [true, 'The username is required'],
@@ -18,6 +18,14 @@ const userSchema = new Schema({
         required: [true, 'The password is required'],
         minlength: [6, 'The password should be at least 10 characters long'],
     },
+    createdCourser: [{
+        type: mongoose.Types.ObjectId,
+        ref: 'Course'
+    }],
+    signedUpCourses: [{
+        type: mongoose.Types.ObjectId,
+        ref: 'Course'
+    }],
 });
 
 userSchema.pre('save', async function(next) {
@@ -35,6 +43,6 @@ userSchema.virtual('rePassword')
     });
 
     
-const User = model('User', userSchema);
+const User = mongoose.model('User', userSchema);
 
 module.exports = User;
