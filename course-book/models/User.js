@@ -4,18 +4,19 @@ const bcrypt = require('bcrypt');
 const userSchema = new Schema({
     username: {
         type: String,
-        required: true,
-        minLength: [2, 'The username should be at least 2 characters long'],
+        required: [true, 'The username is required'],
+        minlength: [5, 'The username should be at least 2 characters long'],
     },
     email: {
         type: String,
-        required: true,
-        minLength: [2, 'The email should be at least 10 characters long'],
+        required: [true, 'The email is required'],
+        unique: true,
+        minlength: [10, 'The email should be at least 10 characters long'],
     },
     password: {
         type: String,
-        required: true,
-        minLength: [2, 'The password should be at least 10 characters long'],
+        required: [true, 'The password is required'],
+        minlength: [6, 'The password should be at least 10 characters long'],
     },
 });
 
