@@ -22,14 +22,14 @@
       <nav>
         <img src="/images/logo.png" />
         <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/catalog">All Courses</a></li>
           <!-- Guest users and Logged users -->
          {{#if isAuthenticated}}
           <li><a href="/profile">Profile</a></li>
           <li><a href="/createCourse">Create Course Offers</a></li>
           <li><a href="/auth/logout">Logout</a></li>
           {{else}}
-          <li><a href="/">Home</a></li>
-          <li><a href="/catalog">All Courses</a></li>
           <!--For guest users-->
           <li><a href="/auth/login">Login</a></li>
           <li><a href="/auth/register">Register</a></li>
