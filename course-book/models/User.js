@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
         required: [true, 'The password is required'],
         minlength: [6, 'The password should be at least 10 characters long'],
     },
-    createdCourser: [{
+    createdCourses: [{
         type: mongoose.Types.ObjectId,
         ref: 'Course'
     }],
