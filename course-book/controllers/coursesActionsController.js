@@ -68,8 +68,9 @@ router.post('/createCourse', async (req, res) => {
 
 
     try {
+
         await courseService.createCourse(req.user._id, courseData);
-        res.render('createCourse/catalog');
+        res.redirect('/catalog');
 
     } catch(err) {
 

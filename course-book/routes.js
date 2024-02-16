@@ -9,6 +9,7 @@ router.use('/auth', authController);
 
 router.use(coursesActionsController);
 
+
 router.get('*', (req, res) => {
     res.render('404');
 });
