@@ -14,10 +14,8 @@ router.get('/catalog/:courseId', async (req, res) => {
     
     const courseDetails = await courseService.getOneDetailed(course).lean();
     const signUpList = courseDetails.signUpList.map(user => user.username).join(', ');
-    console.log(signUpList);
-    const isOwner = courseDetails.owner._id == req.user?._id;
+    const isOwner = courseDetails.owner && courseDetails.owner._id == req.user?._id;
     const isSigned = courseDetails.signUpList.some(user => user._id == req.user?._id);
-    
     //objectId vs string
 
     try {
@@ -39,10 +37,12 @@ router.get('/catalog/:courseId/sign-up', async (req, res) => {
         res.redirect(`/catalog/${courseId}`)
     } catch(err) {
         getErrorMessage(err);
-    }
+    }        
+});
 
-
-        
+router.get('/catalog/:courseId/delete', isCourseOwner, async (req, res) => {
+    await courseService.deleteCourse(req.params.courseId);
+    res.redirect('/catalog');
 });
 
 router.get('/createCourse', (req, res) => {
@@ -63,9 +63,16 @@ router.post('/createCourse', async (req, res) => {
 
         res.render('createCourse/create', { ...courseData, error: getErrorMessage(err) });
     }
-
-
 });
 
+async function isCourseOwner(req, res, next) {
+    const course = await courseService.getOne(req.params.courseId);
+    
+    if(course.owner != req.user?._id) {
+        return res.redirect(`/catalog/${req.params.courseId}`);
+    }
+
+    next();
+};
 
 module.exports = router;
