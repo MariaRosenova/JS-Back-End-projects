@@ -22,14 +22,14 @@
     <!-- Only for registered user and creator of the course-->
     {{#if isAuthenticated}}
       {{#if isOwner}}
-        <a href="#">Edit</a>
-        <a href="#">Delete</a>
+        <a href="/catalog/{{_id}}/edit">Edit</a>
+        <a href="/catalog/{{_id}}/delete">Delete</a>
       {{/if}}
 
       {{#if isSigned}}
         <!-- logged in user who has already signed up for the course-->
         <p class="sign-up">You've already signed up for this course!</p>
-      {{else if isSigned}}
+      {{else}}
         <!-- logged in user who has not yet signed up for the course-->
         <a href="/catalog/{{_id}}/sign-up">Sign up</a>
       {{/if}}
