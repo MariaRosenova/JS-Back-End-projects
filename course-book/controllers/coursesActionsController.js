@@ -14,9 +14,14 @@ router.get('/catalog/:courseId', async (req, res) => {
     
     const courseDetails = await courseService.getOneDetailed(course).lean();
     const signUpList = courseDetails.signUpList.map(user => user.username).join(', ');
-   
+    console.log(signUpList);
+    const isOwner = courseDetails.owner._id == req.user?._id;
+    const isSigned = courseDetails.signUpList.some(user => user._id == req.user?._id);
+    
+    //objectId vs string
+
     try {
-        res.render('details', { ...courseDetails, signUpList });
+        res.render('details', { ...courseDetails, signUpList, isOwner, isSigned});
      
 
     } catch(err) {
