@@ -27,3 +27,5 @@ exports.signUp = async (courseId, userId) => {
 exports.deleteCourse = (courseId) => Course.findByIdAndDelete(courseId);
 
 exports.updateData =  (courseId, editedData) => Course.findByIdAndUpdate(courseId, editedData, {runValidators: true});
+
+exports.getLatest = () => Course.find().sort({createdAt: -1}).limit(3);
