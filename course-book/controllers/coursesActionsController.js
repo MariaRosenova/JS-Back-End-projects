@@ -13,9 +13,10 @@ router.get('/catalog/:courseId', async (req, res) => {
     const course = req.params.courseId;
     
     const courseDetails = await courseService.getOneDetailed(course).lean();
-  
+    const signUpList = courseDetails.signUpList.map(user => user.username).join(', ');
+   
     try {
-        res.render('details', { ...courseDetails });
+        res.render('details', { ...courseDetails, signUpList });
      
 
     } catch(err) {
@@ -29,12 +30,12 @@ router.get('/catalog/:courseId/sign-up', async (req, res) => {
 
     try{
         await courseService.signUp(courseId, userId);
-        console.log('success')
-       // res.redirect(`/catalog/${course}`)
+
+        res.redirect(`/catalog/${courseId}`)
     } catch(err) {
         getErrorMessage(err);
     }
-    console.log('clicked')
+
 
         
 });
