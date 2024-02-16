@@ -53,10 +53,10 @@ router.post('/catalog/:courseId/edit', isCourseOwner, async (req, res) => {
     const editedData = req.body;
 
     try {
-        await courseService.updateData(req.params.courseId, editedData);
+        const courseData = await courseService.updateData(req.params.courseId, editedData);
         res.redirect(`/catalog/${req.params.courseId}`)
     } catch (err) {
-        getErrorMessage(err);
+        res.render('createCourse/edit', {...req.body, error: getErrorMessage(err)})
     }
 });
 router.get('/createCourse', (req, res) => {
