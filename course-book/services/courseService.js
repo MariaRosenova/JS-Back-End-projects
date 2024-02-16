@@ -25,3 +25,5 @@ exports.signUp = async (courseId, userId) => {
 };
 
 exports.deleteCourse = (courseId) => Course.findByIdAndDelete(courseId);
+
+exports.updateData =  (courseId, editedData) => Course.findByIdAndUpdate(courseId, editedData);

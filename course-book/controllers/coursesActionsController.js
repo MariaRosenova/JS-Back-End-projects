@@ -45,6 +45,20 @@ router.get('/catalog/:courseId/delete', isCourseOwner, async (req, res) => {
     res.redirect('/catalog');
 });
 
+router.get('/catalog/:courseId/edit', isCourseOwner, async (req, res) => {
+    res.render('createCourse/edit', { ...req.course });
+});
+
+router.post('/catalog/:courseId/edit', isCourseOwner, async (req, res) => {
+    const editedData = req.body;
+
+    try {
+        await courseService.updateData(req.params.courseId, editedData);
+        res.redirect(`/catalog/${req.params.courseId}`)
+    } catch (err) {
+        getErrorMessage(err);
+    }
+});
 router.get('/createCourse', (req, res) => {
     res.render('createCourse/create');
 });
@@ -54,9 +68,9 @@ router.post('/createCourse', async (req, res) => {
 
 
     try {
-
         await courseService.createCourse(req.user._id, courseData);
         res.render('createCourse/catalog');
+
     } catch(err) {
 
         const message = getErrorMessage(err);
@@ -66,12 +80,13 @@ router.post('/createCourse', async (req, res) => {
 });
 
 async function isCourseOwner(req, res, next) {
-    const course = await courseService.getOne(req.params.courseId);
+    const course = await courseService.getOne(req.params.courseId).lean();
     
     if(course.owner != req.user?._id) {
         return res.redirect(`/catalog/${req.params.courseId}`);
     }
 
+    req.course = course;
     next();
 };
 

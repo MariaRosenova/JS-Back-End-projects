@@ -19,13 +19,12 @@
     <p>{{description}}</p>
   </div>
   <div class="btn-container">
-    <!-- Only for registered user and creator of the course-->
-    {{#if isAuthenticated}}
-      {{#if isOwner}}
-        <a href="/catalog/{{_id}}/edit">Edit</a>
-        <a href="/catalog/{{_id}}/delete">Delete</a>
-      {{/if}}
-
+  <!-- Only for registered user and creator of the course-->
+  {{#if isAuthenticated}}
+    {{#if isOwner}}
+      <a href="/catalog/{{_id}}/edit">Edit</a>
+      <a href="/catalog/{{_id}}/delete">Delete</a>
+    {{else}}
       {{#if isSigned}}
         <!-- logged in user who has already signed up for the course-->
         <p class="sign-up">You've already signed up for this course!</p>
@@ -34,5 +33,7 @@
         <a href="/catalog/{{_id}}/sign-up">Sign up</a>
       {{/if}}
     {{/if}}
-  </div>
+  {{/if}}
+</div>
+
 </div>
