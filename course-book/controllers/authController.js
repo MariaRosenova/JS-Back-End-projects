@@ -30,7 +30,7 @@ router.post("/register", async (req, res) => {
   const registerData = req.body;
   try {
     await authService.register(registerData);
-    res.redirect('/login')
+    res.redirect('/auth/login');
     
   } catch (err) {
     const message = getErrorMessage(err);
