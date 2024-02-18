@@ -13,7 +13,6 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended:false }));
 app.use(cookieParser());
 
-app.use(authMiddleware);
 
 
 app.engine('hbs', handlebars.engine({
@@ -21,11 +20,12 @@ app.engine('hbs', handlebars.engine({
 }));
 app.set('view engine', 'hbs');
 
+app.use(authMiddleware);
+
 app.use(routes);
 
 
-//TODO: NAME 
-mongoose.connect(`mongodb://127.0.0.1:27017/`)
+mongoose.connect(`mongodb://127.0.0.1:27017/second-hand-electronics`)
     .then(() => {
         console.log('DB is connected');
         app.listen(port, () => {console.log(`The app is running on port ${port}`)});
